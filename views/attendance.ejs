@@ -1,0 +1,129 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <%- include('partials/headers') %>
+</head>
+<body>
+  <!-- header section -->
+  <%- include('partials/navbar', { isLoggedin: is_Loggedin, is_Admin: is_Admin, is_Manager: is_Manager }) %>
+  
+    <div class="uk-section">
+        <div class="uk-container">
+            <h3>Employee Attendance</h3>
+        </div>
+    </div>
+    
+    <div class="uk-container">
+        <div id="alertStatus" style="display: none;" class="uk-alert-primary" uk-alert>
+            <a class="uk-alert-close" uk-close></a>
+            <p id="alertMessage">Form Messages.</p>
+        </div>
+
+        <% if(message === true) { %>
+            <script>
+                let message = '<%=msg%>';
+                M.toast({ html: message });
+            </script>
+        <% } %>
+
+        <ul class="uk-flex-center" uk-tab>
+            <li class="uk-active"><a href="#">Male</a></li>
+            <li><a href="#">Female</a></li>
+        </ul>
+        <ul class="uk-switcher uk-margin">
+            <li>
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Month</th>
+                            <th>Day</th>
+                            <th>Morning Shift</th>
+                            <th>Afternoon Shift</th>
+                            <th>Present / Absent</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for( let i=0; i < male.length; i++ ) { %>
+                            <tr>
+                                <td><%= i+1 %></td>
+                                <td><%= male[i].emp_name %></td>
+                                <td><input type="month" onchange="monthChange(this)" name="emp_male_month" id="emp_male_month_<%=i+1%>"></td>
+                                <td><input type="week" onchange="dayChange(this)" name="emp_male_day" id="emp_male_day_<%=i+1%>"></td>
+                                <td><input type="time" onchange="fnTimeChange(this)" name="emp_male_fn_time" id="emp_male_fn_time_<%=i+1%>"></td>
+                                <td><input type="time" onchange="anTimeChange(this)" name="emp_male_an_time" id="emp_male_an_time_<%=i+1%>"></td>
+                                <td><input type="text" onchange="attendance(this)" name="emp_male_attendance" id="emp_male_attendance_<%=i+1%>"></td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </li>
+            <li>
+                <table class="uk-table uk-table-striped">
+                    <thead>
+                        <tr>
+                            <th>#</th>
+                            <th>Name</th>
+                            <th>Month</th>
+                            <th>Day</th>
+                            <th>Morning Shift</th>
+                            <th>Afternoon Shift</th>
+                            <th>Present / Absent</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        <% for( let i=0; i < female.length; i++ ) { %>
+                            <tr>
+                                <td><%= i+1 %></td>
+                                <td><%= female[i].emp_name %></td>
+                                <td><input type="month" onchange="monthChange(this)" name="emp_month" id="emp_month_<%=i+1%>"></td>
+                                <td><input type="week" onchange="dayChange(this)" name="emp_day" id="emp_day_<%=i+1%>"></td>
+                                <td><input type="time" onchange="fnTimeChange(this)" name="emp_fn_time" id="emp_fn_time_<%=i+1%>"></td>
+                                <td><input type="time" onchange="anTimeChange(this)" name="emp_an_time" id="emp_an_time_<%=i+1%>"></td>
+                                <td><input type="text" onchange="attendance(this)" name="emp_female_attendance" id="emp_female_attendance_<%=i+1%>"></td>
+                            </tr>
+                        <% } %>
+                    </tbody>
+                </table>
+            </li>
+        </ul>
+    </div>
+
+    <div class="uk-section">
+        <div class="uk-container"></div>
+    </div>
+    
+    <script>
+        function monthChange(ele) {
+            let months = ["January", "February", "March", "April", "May", "June", "July", "August", "September", "October",
+            "November", "December"];
+            let month_input = document.getElementById(ele.id).value;
+            console.log(month_input);
+        }
+
+        function dayChange(ele) {
+            let weekdays = ["Sunday", "Monday", "Tuesday", "Wednesday", "Thursday", "Friday", "Staurday"];
+            let day_input = document.getElementById(ele.id).value;
+            console.log(day_input);
+        }
+
+        function fnTimeChange(ele) {
+            let time_input = document.getElementById(ele.id).value;
+            console.log(time_input);
+        }
+
+        function anTimeChange(ele) {
+            let time_input = document.getElementById(ele.id).value;
+            console.log(time_input);
+        }
+
+        function attendance(ele) {
+            let present_input = document.getElementById(ele.id).value;
+            console.log(present_input);
+        }
+    </script>
+  <!-- footer section -->
+  <%- include('partials/footer') %>
+</body>
+</html>
